@@ -825,7 +825,6 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transition: opacity 0.6s ease-out;
             will-change: opacity;
         }
         
@@ -1316,17 +1315,17 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="fname">First Name *</label>
-                            <input type="text" id="fname" name="fname" required>
+                            <input type="text" id="fname" name="fname" maxlength="50" pattern="[a-zA-Z\s'-]+" placeholder="Enter your first name" required>
                         </div>
                         <div class="form-group">
                             <label for="lname">Last Name *</label>
-                            <input type="text" id="lname" name="lname" required>
+                            <input type="text" id="lname" name="lname" maxlength="50" pattern="[a-zA-Z\s'-]+" placeholder="Enter your last name" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" maxlength="100" placeholder="your@email.com" required>
                     </div>
                     
                     <div class="form-group">
@@ -1356,7 +1355,7 @@
                     
                     <div class="form-group">
                         <label for="message">Message for the couple</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Share your well wishes..."></textarea>
+                        <textarea id="message" name="message" rows="4" maxlength="500" placeholder="Share your well wishes... (max 500 characters)"></textarea>
                     </div>
                     
                     <button type="submit" class="btn">Submit RSVP</button>
@@ -1428,7 +1427,13 @@
         
         function updateBackgroundImage() {
             const imageUrl = galleryImages[currentCarouselIndex].url;
-            document.documentElement.style.setProperty('--bg-image', `url('${imageUrl}')`);
+            const bgImageUrl = `url('${imageUrl}')`;
+            // Update root CSS variable for all elements
+            document.documentElement.style.setProperty('--bg-image', bgImageUrl);
+            // Update all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.setProperty('--bg-image', bgImageUrl);
+            });
         }
         
         function initCarousel() {
@@ -1439,14 +1444,8 @@
         function updateCarouselImage() {
             const carouselImage = document.getElementById('carouselImage');
             if (!carouselImage) return;
-            // Use requestAnimationFrame for smooth transitions
-            requestAnimationFrame(() => {
-                carouselImage.style.opacity = '0.7';
-                setTimeout(() => {
-                    carouselImage.src = galleryImages[currentCarouselIndex].url;
-                    carouselImage.style.opacity = '1';
-                }, 300);
-            });
+            // Instant seamless transition - no fade
+            carouselImage.src = galleryImages[currentCarouselIndex].url;
             updateCarouselIndicators();
         }
         
@@ -1534,10 +1533,9 @@
                 targetSection.classList.remove('hidden');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 // Set background image for all sections
-                const sectionBefore = targetSection.querySelector('::before');
-                if (sectionBefore) {
-                    targetSection.style.setProperty('--bg-image', `url('${galleryImages[currentCarouselIndex].url}')`);
-                }
+                const bgImageUrl = `url('${galleryImages[currentCarouselIndex].url}')`;
+                document.documentElement.style.setProperty('--bg-image', bgImageUrl);
+                targetSection.style.setProperty('--bg-image', bgImageUrl);
             }
             
             document.getElementById('nav').classList.remove('active');
@@ -1570,11 +1568,11 @@
         
         const galleryImages = [
             { url: './IMAGES/Ash1.jpg', title: 'Engagement' },
-            { url: './IMAGES/Ash2.jpg', title: 'Beautiful Moment' },
-            { url: './IMAGES/Ash3.jpg', title: 'Our Love' },
-            { url: './IMAGES/Ash4.jpg', title: 'Together' },
-            { url: './IMAGES/Ash5.jpg', title: 'Memories' },
-            { url: './IMAGES/ash6.jpg', title: 'Joy' }
+            { url: './IMAGES/Ash2.jpg', title: 'Moment Together' },
+            { url: './IMAGES/Ash5.jpg', title: 'Pure Joy' },
+            { url: './IMAGES/Ash4.jpg', title: 'Forever Love' },
+            { url: './IMAGES/ash6.jpg', title: 'Our Story' },
+            { url: './IMAGES/Ash3.jpg', title: 'Beautiful Bond' }
         ];
         
         function initGallery() {
@@ -1620,15 +1618,43 @@
             const lname = document.getElementById('lname').value.trim();
             const email = document.getElementById('email').value.trim();
             const isAttending = document.getElementById('isAttending').value;
+            const message = document.getElementById('message').value.trim();
             
+            // Comprehensive input validation
             if (!fname || !lname || !email || !isAttending) {
                 alert('Please fill in all required fields.');
                 return;
             }
             
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            // First Name: Only letters and hyphens, max 50 chars
+            const nameRegex = /^[a-zA-Z\s'-]{1,50}$/;
+            if (!nameRegex.test(fname)) {
+                alert('First name can only contain letters, spaces, hyphens, and apostrophes (max 50 characters).');
+                return;
+            }
+            
+            // Last Name: Only letters and hyphens, max 50 chars
+            if (!nameRegex.test(lname)) {
+                alert('Last name can only contain letters, spaces, hyphens, and apostrophes (max 50 characters).');
+                return;
+            }
+            
+            // Email: Strict validation
+            const emailRegex = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!emailRegex.test(email)) {
                 alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Message: Max 500 characters, alphanumeric + basic punctuation
+            if (message && message.length > 500) {
+                alert('Message cannot exceed 500 characters.');
+                return;
+            }
+            
+            const messageRegex = /^[a-zA-Z0-9\s.,!?\-'"&()]*$/;
+            if (message && !messageRegex.test(message)) {
+                alert('Message contains invalid characters. Please use only letters, numbers, and basic punctuation.');
                 return;
             }
             
@@ -1638,13 +1664,13 @@
             
             const formData = new FormData(this);
             const data = {
-                fname: formData.get('fname'),
-                lname: formData.get('lname'),
-                email: formData.get('email'),
+                fname: fname.substring(0, 50),
+                lname: lname.substring(0, 50),
+                email: email.substring(0, 100),
                 isAttending: formData.get('isAttending'),
                 isGlutenFree: formData.get('isGlutenFree') === 'yes' ? 'Yes' : 'No',
                 isKosher: formData.get('isKosher') === 'yes' ? 'Yes' : 'No',
-                message: formData.get('message') || '',
+                message: message.substring(0, 500),
                 timestamp: new Date().toLocaleString()
             };
             
