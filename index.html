@@ -33,14 +33,15 @@
             left: 0;
             width: 200%;
             height: 100%;
-            background-size: 50% contain;
+            background-image: var(--bg-image);
+            background-size: 50% cover;
             background-position: 0 center;
             background-repeat: repeat-x;
             background-attachment: fixed;
             z-index: -1;
-            opacity: 0.08;
-            transition: background-image 0.6s ease-out;
-            animation: marqueeBackground 60s linear infinite;
+            opacity: 0.12;
+            transition: background-image 0.4s ease-out;
+            animation: marqueeBackground 80s linear infinite;
             will-change: background-position;
         }
         
@@ -49,7 +50,7 @@
                 background-position: 0 center;
             }
             100% {
-                background-position: -100% center;
+                background-position: -200% center;
             }
         }
         
@@ -210,13 +211,13 @@
             width: 200%;
             height: 100%;
             background-image: var(--bg-image);
-            background-size: 50% contain;
+            background-size: 50% cover;
             background-position: 0 center;
             background-repeat: repeat-x;
             background-attachment: fixed;
             z-index: -1;
-            opacity: 0.08;
-            animation: marqueeBackground 60s linear infinite;
+            opacity: 0.12;
+            animation: marqueeBackground 80s linear infinite;
             pointer-events: none;
             will-change: background-position;
         }
@@ -235,14 +236,14 @@
             right: 0;
             bottom: 0;
             background-image: var(--bg-image);
-            background-size: 50% contain;
+            background-size: 50% cover;
             background-position: 0 center;
             background-repeat: repeat-x;
             background-attachment: fixed;
             z-index: 0;
             opacity: 1;
-            transition: background-image 0.6s ease-out;
-            animation: marqueeBackground 60s linear infinite;
+            transition: background-image 0.4s ease-out;
+            animation: marqueeBackground 80s linear infinite;
             will-change: background-position;
         }
         
@@ -825,6 +826,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            transition: opacity 0.4s ease-out;
             will-change: opacity;
         }
         
@@ -1444,8 +1446,12 @@
         function updateCarouselImage() {
             const carouselImage = document.getElementById('carouselImage');
             if (!carouselImage) return;
-            // Instant seamless transition - no fade
-            carouselImage.src = galleryImages[currentCarouselIndex].url;
+            // Smooth fade transition - gradually fade to next photo
+            carouselImage.style.opacity = '0';
+            setTimeout(() => {
+                carouselImage.src = galleryImages[currentCarouselIndex].url;
+                carouselImage.style.opacity = '1';
+            }, 200);
             updateCarouselIndicators();
         }
         
