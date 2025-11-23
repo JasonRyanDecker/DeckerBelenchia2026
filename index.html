@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jason Decker & Ashton Belenchia - Wedding</title>
     <style>
+        :root {
+            --bg-image: none;
+        }
+        
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Crimson+Text:wght@400;600&display=swap');
         
         * {
@@ -35,6 +39,7 @@
             background-attachment: fixed;
             z-index: -1;
             opacity: 0.08;
+            transition: background-image 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-in-out;
         }
         
         body::after {
@@ -180,7 +185,7 @@
             justify-content: center;
             padding: 40px 20px;
             opacity: 0;
-            animation: fadeInUp 1s ease forwards;
+            animation: fadeInUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
             position: relative;
             z-index: 1;
         }
@@ -199,11 +204,93 @@
         #home {
             margin-top: -75px;
             padding-top: 0;
+            background: none;
+        }
+        
+        #home::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: var(--bg-image);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            z-index: 0;
+            opacity: 1;
+            transition: background-image 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        #home > .hero {
+            position: relative;
+            z-index: 1;
         }
         
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            0% { 
+                opacity: 0; 
+                transform: translateY(60px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-60px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes glowPulse {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+            }
         }
         
         .hero {
@@ -213,7 +300,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #1a0f15 0%, #0f0f0f 50%, #1a1410 100%);
+            background: transparent;
             overflow: hidden;
             border-bottom: 2px solid rgba(212, 175, 55, 0.3);
         }
@@ -225,7 +312,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(139, 35, 69, 0.2) 0%, rgba(184, 134, 11, 0.1) 25%, rgba(15, 15, 15, 0.7) 50%, rgba(15, 15, 15, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(139, 35, 69, 0.3) 0%, rgba(184, 134, 11, 0.15) 25%, rgba(15, 15, 15, 0.5) 50%, rgba(15, 15, 15, 0.8) 100%);
             z-index: 1;
         }
         
@@ -338,6 +425,7 @@
             width: 100%;
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            animation: scaleIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
         .form-container h2 {
@@ -349,6 +437,7 @@
             color: #d4af37;
             letter-spacing: 4px;
             text-transform: uppercase;
+            animation: fadeInDown 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s backwards;
         }
         
         .form-group {
@@ -449,6 +538,18 @@
             transition: all 0.3s ease;
             margin-top: 40px;
             width: 100%;
+            animation: slideInUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .btn:hover {
@@ -484,6 +585,7 @@
             width: 100%;
             backdrop-filter: blur(10px);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            animation: scaleIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
         .info-container h2 {
@@ -495,6 +597,7 @@
             color: #d4af37;
             letter-spacing: 4px;
             text-transform: uppercase;
+            animation: fadeInDown 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s backwards;
         }
         
         .info-container h3 {
@@ -525,7 +628,14 @@
             border-left: 3px solid #d4af37;
             padding-left: 30px;
             background: rgba(212, 175, 55, 0.05);
+            animation: slideInLeft 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation-fill-mode: both;
         }
+        
+        .timeline-item:nth-child(2) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.4s; }
         
         .registry-grid {
             display: grid;
@@ -540,7 +650,16 @@
             padding: 30px;
             text-align: center;
             transition: all 0.3s ease;
+            animation: scaleIn 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation-fill-mode: both;
         }
+        
+        .registry-card:nth-child(1) { animation-delay: 0.1s; }
+        .registry-card:nth-child(2) { animation-delay: 0.2s; }
+        .registry-card:nth-child(3) { animation-delay: 0.3s; }
+        .registry-card:nth-child(4) { animation-delay: 0.4s; }
+        .registry-card:nth-child(5) { animation-delay: 0.5s; }
+        .registry-card:nth-child(6) { animation-delay: 0.6s; }
         
         .registry-card:hover {
             background: rgba(139, 35, 69, 0.2);
@@ -595,7 +714,16 @@
             position: relative;
             border: 1px solid rgba(212, 175, 55, 0.3);
             transition: all 0.3s ease;
+            animation: scaleIn 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation-fill-mode: both;
         }
+        
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.15s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.25s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.35s; }
         
         .gallery-item:hover {
             transform: scale(1.02);
@@ -768,6 +896,114 @@
             opacity: 1;
         }
         
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a0f15 0%, #0f0f0f 50%, #1a1410 100%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.8s ease-in-out;
+        }
+        
+        .page-loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loader-container {
+            text-align: center;
+        }
+        
+        .loader-progress-wrapper {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .loader-progress-left {
+            position: absolute;
+            left: 0;
+            width: 0;
+            height: 8px;
+            background: linear-gradient(90deg, transparent, #d4af37);
+            animation: fillLeft 3s ease-in-out forwards;
+        }
+        
+        .loader-progress-right {
+            position: absolute;
+            right: 0;
+            width: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #d4af37, transparent);
+            animation: fillRight 3s ease-in-out forwards;
+        }
+        
+        @keyframes fillLeft {
+            0% { width: 0; }
+            100% { width: 50%; }
+        }
+        
+        @keyframes fillRight {
+            0% { width: 0; }
+            100% { width: 50%; }
+        }
+        
+        .loader-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+            opacity: 0;
+            animation: heartPulse 3s ease-in-out forwards;
+        }
+        
+        @keyframes heartPulse {
+            0% { 
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            60% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            100% { 
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+                animation: heartBeat 0.6s ease-in-out 2.4s infinite;
+            }
+        }
+        
+        @keyframes heartBeat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            25% { transform: translate(-50%, -50%) scale(1.1); }
+            50% { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        .loader-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: #d4af37;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
         .hidden {
             display: none;
         }
@@ -914,6 +1150,16 @@
 </head>
 <body>
     <div class="nav-overlay" id="navOverlay"></div>
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-container">
+            <div class="loader-progress-wrapper">
+                <div class="loader-progress-left"></div>
+                <div class="loader-progress-right"></div>
+                <div class="loader-heart">❤️</div>
+            </div>
+            <p class="loader-text">Loading Your Wedding</p>
+        </div>
+    </div>
     <header>
         <div class="nav-container">
             <div class="hamburger" id="hamburger">
@@ -1107,13 +1353,6 @@
                 <h3>Venue Location</h3>
                 <p>Our celebration will take place in beautiful Sussex County, near Vernon, NJ. The area offers stunning natural scenery and a variety of activities for our guests to enjoy.</p>
                 
-                <div class="carousel-container" id="carouselContainer">
-                    <img class="carousel-image" id="carouselImage" src="" alt="Wedding Gallery" onmouseenter="stopCarouselAutoPlay()" onmouseleave="startCarouselAutoPlay()">
-                    <button class="carousel-nav carousel-prev" onclick="prevCarouselImage()">&#10094;</button>
-                    <button class="carousel-nav carousel-next" onclick="nextCarouselImage()">&#10095;</button>
-                    <div class="carousel-indicators" id="carouselIndicators"></div>
-                </div>
-                
                 <h3>Local Attractions</h3>
                 <p>Sussex County offers beautiful scenery and plenty of activities. High Point State Park offers scenic overlooks and hiking trails. High Point Monument is a historic landmark with panoramic views. The area is known for its natural beauty, lakes, and outdoor recreation.</p>
                 
@@ -1159,7 +1398,8 @@
         let carouselAutoPlayInterval;
         
         function updateBackgroundImage() {
-            document.body.style.backgroundImage = `url('${galleryImages[currentCarouselIndex].url}')`;
+            const imageUrl = galleryImages[currentCarouselIndex].url;
+            document.documentElement.style.setProperty('--bg-image', `url('${imageUrl}')`);
         }
         
         function initCarousel() {
@@ -1408,6 +1648,14 @@ fetch(scriptURL, {
             initCarousel();
             updateCountdown();
             createCarouselIndicators();
+            
+            // Hide loader after 3 seconds to allow Spotify and images to load
+            setTimeout(() => {
+                const pageLoader = document.getElementById('pageLoader');
+                if (pageLoader) {
+                    pageLoader.classList.add('hidden');
+                }
+            }, 3000);
         });
     </script>
 </body>
