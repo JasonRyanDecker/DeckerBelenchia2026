@@ -31,16 +31,25 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 200%;
             height: 100%;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-size: 50% contain;
+            background-position: 0 center;
+            background-repeat: repeat-x;
             background-attachment: fixed;
             z-index: -1;
             opacity: 0.08;
-            transition: background-image 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-in-out;
-            animation: slideBackground 40s ease-in-out infinite;
+            transition: background-image 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: marqueeBackground 60s linear infinite;
+        }
+        
+        @keyframes marqueeBackground {
+            0% {
+                background-position: 0 center;
+            }
+            100% {
+                background-position: -100% center;
+            }
         }
         
         body::after {
@@ -216,13 +225,14 @@
             right: 0;
             bottom: 0;
             background-image: var(--bg-image);
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-size: 50% contain;
+            background-position: 0 center;
+            background-repeat: repeat-x;
             background-attachment: fixed;
             z-index: 0;
             opacity: 1;
             transition: background-image 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: marqueeBackground 60s linear infinite;
         }
         
         #home > .hero {
