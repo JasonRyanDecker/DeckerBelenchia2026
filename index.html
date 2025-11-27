@@ -458,8 +458,6 @@
       min-height: 900px;
       overflow: hidden;
       border-radius: 10px;
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.05);
     }
 
     /* Actual iframe styling */
@@ -935,81 +933,6 @@
     }
     const lbEl = $('#lightbox'); if(lbEl) lbEl.addEventListener('click', e => { if(e.target === lbEl) closeLightbox(); });
     const lbClose = $('#lightboxClose'); if(lbClose) lbClose.addEventListener('click', closeLightbox);
-
-    /* ---------- RSVP form handling (preserve original behavior / endpoint) ---------- */
-    const form = $('#rsvpForm');
-    if(form){
-      const attendingSelect = $('#isAttending');
-      const attendingFields = $('#attendingFields');
-      if(attendingSelect){
-        attendingSelect.addEventListener('change', function(){
-          if(attendingFields) attendingFields.style.display = this.value === 'yes' ? 'block' : 'none';
-        });
-      }
-
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
-        const fname = $('#fname')?.value.trim();
-        const lname = $('#lname')?.value.trim();
-        const email = $('#email')?.value.trim();
-        const isAttending = $('#isAttending')?.value;
-
-        if(!fname || !lname || !email || !isAttending){
-          alert('Please fill in all required fields.');
-          return;
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(email)){
-          alert('Please enter a valid email address.');
-          return;
-        }
-
-        const submitBtn = form.querySelector('.btn');
-        if(submitBtn){ submitBtn.disabled = true; submitBtn.textContent = 'Submitting...'; }
-
-        const formData = new FormData(form);
-        const data = {
-          fname: formData.get('fname'),
-          lname: formData.get('lname'),
-          email: formData.get('email'),
-          isAttending: formData.get('isAttending'),
-          isGlutenFree: formData.get('isGlutenFree') === 'yes' ? 'Yes' : 'No',
-          isKosher: formData.get('isKosher') === 'yes' ? 'Yes' : 'No',
-          message: formData.get('message') || '',
-          timestamp: new Date().toLocaleString()
-        };
-
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzXaFLpnIOmV3HDkahEgtuT7lXH0TpC8mGRu1tCNFDWiAx_CzdNtlyVMEUfbL0xh7-1bg/exec';
-
-        fetch(scriptURL, {
-          method: 'POST',
-          mode: 'cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        })
-        .then(res => res.json().catch(()=>({status:'ok'})))
-        .then(result => {
-          // original expected result.status === 'success'
-          if(result && (result.status === 'success' || result.status === 'ok')){
-            $('#successMessage')?.classList.add('active');
-            form.reset();
-            if(attendingFields) attendingFields.style.display = 'none';
-            setTimeout(()=> { $('#successMessage')?.classList.remove('active'); }, 5000);
-          } else {
-            alert('Error submitting RSVP. Please try again later.');
-            console.error('RSVP error response:', result);
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          alert('There was an error submitting your RSVP. Please try again.');
-        })
-        .finally(()=> {
-          if(submitBtn){ submitBtn.disabled = false; submitBtn.textContent = 'Submit RSVP'; }
-        });
-      });
-    }
 
     /* ---------- Page init ---------- */
     document.addEventListener('DOMContentLoaded', function(){
