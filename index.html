@@ -508,7 +508,7 @@
   <!-- Page loader -->
   <div id="pageLoader" class="page-loader" role="status" aria-live="polite">
     <div>
-      <div style="text-align:center; margin-bottom:8px; font-family:'Cinzel',serif; font-weight:500;">Loading Your Wedding</div>
+      <div style="text-align:center; margin-bottom:8px; font-family:'Cinzel',serif; font-weight:500;">Loading</div>
       <div style="width:220px;height:6px;background:rgba(255,255,255,0.06);border-radius:4px; overflow:hidden;">
         <div style="width:60%;height:100%;background:linear-gradient(90deg,var(--gold), #f0e68c); animation:loadbar 2.4s linear infinite"></div>
       </div>
@@ -683,9 +683,6 @@
         <!-- Gallery grid used by JS -->
         <div id="galleryGrid" class="gallery-grid" aria-live="polite"></div>
 
-        <div style="text-align:center; color: rgba(255,255,255,0.7); margin-top:18px;">
-          View our full gallery slideshow in the <a href="#" onclick="showSection('details'); return false;" style="color:var(--gold); text-decoration:underline;">Things To Do</a> section
-        </div>
       </div>
     </section>
 
@@ -702,14 +699,6 @@
 
           <h3 style="color:var(--gold); margin-top:10px;">Dress Code</h3>
           <p>Formal attire requested. We want you to feel comfortable and look your best as we celebrate together.</p>
-
-          <!-- Carousel (new visible component hooked to existing JS) -->
-          <div class="carousel-container" aria-hidden="false">
-            <button class="carousel-nav carousel-prev" aria-label="Previous image" onclick="prevCarouselImage()">‹</button>
-            <img id="carouselImage" class="carousel-image" alt="Carousel image" src="" />
-            <button class="carousel-nav carousel-next" aria-label="Next image" onclick="nextCarouselImage()">›</button>
-            <div id="carouselIndicators" class="carousel-indicators" role="tablist" aria-label="Carousel indicators"></div>
-          </div>
 
         </div>
       </div>
@@ -758,12 +747,18 @@
        Note: keep these paths as you provided. If you rename/move images, update these paths.
     */
     const galleryImages = [
-      { url: './IMAGES/Ash1.jpg', title: 'Engagement' },
-      { url: './IMAGES/Ash2.jpg', title: 'Beautiful Moment' },
-      { url: './IMAGES/Ash3.jpg', title: 'Our Love' },
-      { url: './IMAGES/Ash4.jpg', title: 'Together' },
-      { url: './IMAGES/Ash5.jpg', title: 'Memories' },
-      { url: './IMAGES/ash6.jpg', title: 'Joy' }
+      { url: './IMAGES/Ash1.jpg' },
+      { url: './IMAGES/Ash2.jpg' },
+      { url: './IMAGES/Ash3.jpg' },
+      { url: './IMAGES/Ash4.jpg' },
+      { url: './IMAGES/Ash5.jpg' },
+      { url: './IMAGES/ash6.jpg' },
+      { url: './IMAGES/ash7.jpg' },
+      { url: './IMAGES/ash8.jpg'},
+      { url: './IMAGES/ash9.jpg'},
+      { url: './IMAGES/Ash11.jpg'},
+      { url: './IMAGES/Ash12.jpg'},
+      { url: './IMAGES/ash13.jpg'}
     ];
 
     /* ---------- Background & Carousel state ---------- */
