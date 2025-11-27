@@ -123,27 +123,36 @@
     }
 
     /* Mobile hamburger */
-    .hamburger{
-      display:none;
-      width:44px;height:44px;
-      align-items:center;justify-content:center;
-      background:transparent;border-radius:10px;border:none;
+    .hamburger {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
     }
     .hamburger .bar{
-      display:block;
-      width:22px;height:2px;margin:3px 0;background:var(--gold);
+      width:22px;
+      height:2px;
+      margin:3px 0;
+      background:var(--gold);
       transition: transform 200ms ease, opacity 200ms ease;
     }
+    /* --- When expanded (X icon) --- */
     .hamburger[aria-expanded="true"] .bar:nth-child(1) {
-        transform: translateY(6px) rotate(45deg);
+      transform: translateY(8px) rotate(45deg);
     }
 
     .hamburger[aria-expanded="true"] .bar:nth-child(2) {
-        opacity: 0;
+      opacity: 0;
     }
 
     .hamburger[aria-expanded="true"] .bar:nth-child(3) {
-        transform: translateY(-6px) rotate(-45deg);
+      transform: translateY(-8px) rotate(-45deg);
     }
 
 
